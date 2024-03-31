@@ -9,6 +9,10 @@ def test_login_trivial():
 	socnet = SocNet()
 	assert socnet.login("admin", "password") == 1
 
+def test_login_invalid_user():
+	socnet = SocNet()
+	assert socnet.login("wrong_user", "wrong_user") == -1
+
 def test_send_message_1():
 	socnet = SocNet()
 	assert socnet.send_message("test", 1) == "success"
@@ -21,9 +25,9 @@ def test_delete_friend_1():
 	socnet = SocNet()
 	assert socnet.delete_friend(1) == "success"
 
-def test_find_user_1():
+def test_find_user_by_name_1():
 	socnet = SocNet()
-	assert socnet.find_user("admin") == 1
+	assert socnet.find_user_by_name("admin") == 1
 
 def test_create_user_1():
 	socnet = SocNet()

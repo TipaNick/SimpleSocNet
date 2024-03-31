@@ -8,8 +8,14 @@ class SocNet:
 		pass
 		
 	def login(self, login, password):
-		# todo: finish method
-		return 1
+		# Метод авторизации с помощью логина и пароля
+		# param login - любая строка
+		# param password - любая строка
+		# return - id пользателя
+		for user in self.USERS:
+			if user[1] == login and user[2] == password:
+				return user[0]
+		return -1
 
 	def send_message(self, text, id_friend):
 		# todo: finish method
@@ -23,10 +29,10 @@ class SocNet:
 		# todo: finish method
 		return "success"
 
-	def find_user(self, name):
+	def find_user_by_name(self, name):
 		# todo: finish method
 		return 1
 
 	def create_user(self, login, password):
 		# todo: finish method
-		return "se"
+		return "success"
