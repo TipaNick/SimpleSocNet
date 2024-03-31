@@ -34,5 +34,14 @@ class SocNet:
 		return 1
 
 	def create_user(self, login, password):
-		# todo: finish method
+		# Метод, создающий пользователя
+		# param login - любая строка
+		# param password - любая строка
+		# return - результат операции
+		for user in self.USERS:
+			if user[1] == login:
+				return "failed"
+		self.ID_LAST_USER += 1
+		self.USERS.append([self.ID_LAST_USER, login, password])
+		self.FRIENDS.append([self.ID_LAST_USER, []])
 		return "success"

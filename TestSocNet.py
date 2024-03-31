@@ -29,7 +29,10 @@ def test_find_user_by_name_1():
 	socnet = SocNet()
 	assert socnet.find_user_by_name("admin") == 1
 
-def test_create_user_1():
+def test_create_user_not_existed():
 	socnet = SocNet()
 	assert socnet.create_user("test1", "test1") == "success"
 
+def test_create_user_already_existed():
+	socnet = SocNet()
+	assert socnet.create_user("admin", "password") == "failed"
