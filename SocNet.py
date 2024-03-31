@@ -40,8 +40,8 @@ class SocNet:
 		# return - результат операции
 		for user in self.USERS:
 			if user[1] == login:
-				return "failed"
+				return -1
 		self.ID_LAST_USER += 1
 		self.USERS.append([self.ID_LAST_USER, login, password])
 		self.FRIENDS.append([self.ID_LAST_USER, []])
-		return "success"
+		return 2
