@@ -6,9 +6,10 @@ class SocNet:
 
 	__USERS = [[1, "admin", "password"],
 			[2, "test", "test"],
-			[3, "friend1", "friend1"]]
+			[3, "friend1", "friend1"],
+			[4, "friend_to_del", "pass"]]
 
-	__FRIENDS = [[1, [2, 3]], [2, [1]], [3,[]]]
+	__FRIENDS = [[1, [2, 3]], [2, [1]], [3,[1]], [4,[]]]
 
 	def __init__(self):
 		pass
@@ -32,32 +33,52 @@ class SocNet:
 		self.__MESSAGES.append([id_user, id_friend, text])
 		return "success"
 
-	def add_friend(self, id_user, friend_to_add):
+	def add_friend(self, id_user, friend_name):
 		# Метод, добавляющий в друзья
 		# param id_user - любое число
-		# param name_friend - любая строка
+		# param friend_name - любая строка
+		# return - статус операции 
+		user_friends_list = None
+		friend_friends_list = None
+
+		friend_id = self.find_user_by_name(friend_name)
+		if friend_id == -1:
+			return "User is not existed"
+
+		for friend in self.__FRIENDS:
+			if friend[0] == id_user:
+				user_friends_list = friend[1]
+			if friend[0] == friend_id:
+				friend_friends_list = friend[1]
+
+		if friend_id in user_friends_list:
+			return "User already in friend list"
+
+		user_friends_list.append(friend_id)
+		friend_friends_list.append(id_user)
+
+		return "Success"
+
+	def delete_friend(self, id_user, friend_to_delete):
+		# Метод, удаляющий из друзей
+		# param id_user - любое число
+		# param friend_to_delete - любой пользователь(массив [id, "name"])
 		# return - статус операции 
 		user_friends_list = None
 		friend_friends_list = None
 		for friend in self.__FRIENDS:
 			if friend[0] == id_user:
 				user_friends_list = friend[1]
-			if friend[0] == friend_to_add[0]:
+			if friend[0] == friend_to_delete[0]:
 				friend_friends_list = friend[1]
 
-		if friend_to_add[0] in user_friends_list:
-			return "User already in friend list"
-
-		user_friends_list.append(friend_to_add[0])
-		friend_friends_list.append(id_user)
-
-		return "success"
-
-	def delete_friend(self, id_user, friend):
-		# todo: finish method
-		if id_user == 2 and friend[0] == 3:
+		if friend_to_delete[0] not in user_friends_list:
 			return "User is not in friend list"
-		return "success"
+
+		user_friends_list.remove(friend_to_delete[0])
+		friend_friends_list.remove(id_user)
+
+		return "Success"
 
 	def find_user_by_name(self, name):
 		# Метод, возвращающий id по имени
@@ -101,7 +122,7 @@ class SocNet:
 	def get_list_messages(self, id_user, friend):
 		# Метод, собирающий сообщения
 		# param id_user - любое число
-		# param id_friend - любое число
+		# param friend - любой пользователь(массив [id, "name"])
 		# return - массив строк
 		list_messages = []
 		for message in self.__MESSAGES:
