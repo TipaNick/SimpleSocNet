@@ -89,4 +89,6 @@ class SocNet:
 		return friends_list
 
 	def get_list_messages(self, id_user, id_friend):
-		return ["Вы: Test text", "test: Test text 2"]
+		if id_user == 1 and id_friend == 2:
+			return ["Вы: Test text", "test: Test text 2"]
+		return  ["admin: Test text", "Вы: Test text 2"]

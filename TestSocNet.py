@@ -45,6 +45,10 @@ def test_get_list_friends():
 	socnet = SocNet()
 	assert socnet.get_list_friends(1) == [[2, "test"], [3, "friend1"]]
 
-def test_list_messages():
+def test_list_messages_1_and_2():
 	socnet = SocNet()
 	assert socnet.get_list_messages(1, 2) == ["Вы: Test text", "test: Test text 2"]
+
+def test_list_messages_2_and_1():
+	socnet = SocNet()
+	assert socnet.get_list_messages(2, 1) == ["admin: Test text", "Вы: Test text 2"]
