@@ -1,10 +1,13 @@
 class SocNet:
 	__ID_LAST_USER = 10
+
 	__MESSAGES = [[1, 2, "Test text"],
 				[2, 1, "Test text 2"]]
+
 	__USERS = [[1, "admin", "password"],
 			[2, "test", "test"],
 			[3, "friend1", "friend1"]]
+
 	__FRIENDS = [[1, [2, 3]], [2, [1]], [3,[]]]
 
 	def __init__(self):
@@ -29,24 +32,31 @@ class SocNet:
 		self.__MESSAGES.append([id_user, id_friend, text])
 		return "success"
 
-	def add_friend(self, id_user, name_friend):
+	def add_friend(self, id_user, friend_to_add):
 		# Метод, добавляющий в друзья
 		# param id_user - любое число
 		# param name_friend - любая строка
 		# return - статус операции 
-		friend_id = self.find_user_by_name(name_friend)
-		if friend_id == -1:
-			return "User is not existed"
+		user_friends_list = None
+		friend_friends_list = None
 		for friend in self.__FRIENDS:
 			if friend[0] == id_user:
-				if friend_id in friend[1]:
-					return "User already in friend list"
-				else:
-					friend[1].append(friend_id)
-					return "success"
+				user_friends_list = friend[1]
+			if friend[0] == friend_to_add[0]:
+				friend_friends_list = friend[1]
 
-	def delete_friend(self, id_user, num_friend):
+		if friend_to_add[0] in user_friends_list:
+			return "User already in friend list"
+
+		user_friends_list.append(friend_to_add[0])
+		friend_friends_list.append(id_user)
+
+		return "success"
+
+	def delete_friend(self, id_user, friend):
 		# todo: finish method
+		if id_user == 2 and friend[0] == 3:
+			return "User is not in friend list"
 		return "success"
 
 	def find_user_by_name(self, name):
@@ -88,7 +98,16 @@ class SocNet:
 					break
 		return friends_list
 
-	def get_list_messages(self, id_user, id_friend):
-		if id_user == 1 and id_friend == 2:
-			return ["Вы: Test text", "test: Test text 2"]
-		return  ["admin: Test text", "Вы: Test text 2"]
+	def get_list_messages(self, id_user, friend):
+		# Метод, собирающий сообщения
+		# param id_user - любое число
+		# param id_friend - любое число
+		# return - массив строк
+		list_messages = []
+		for message in self.__MESSAGES:
+			if message[0] == id_user and message[1] == friend[0]:
+				list_messages.append(f"Вы: {message[2]}")
+			if message[1] == id_user and message[0] == friend[0]:
+				list_messages.append(f"{friend[1]}: {message[2]}")
+
+		return list_messages

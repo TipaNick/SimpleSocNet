@@ -19,15 +19,19 @@ def test_send_message():
 
 def test_add_friend_not_created():
 	socnet = SocNet()
-	assert socnet.add_friend(2, "friend1") == "success"
+	assert socnet.add_friend(2, [3, "friend1"]) == "success"
 
 def test_add_friend_already_created():
 	socnet = SocNet()
-	assert socnet.add_friend(1, "test") == "User already in friend list"
+	assert socnet.add_friend(1, [2, "test"]) == "User already in friend list"
 
 def test_delete_friend():
 	socnet = SocNet()
-	assert socnet.delete_friend(1, 2) == "success"
+	assert socnet.delete_friend(1, [2, "test"]) == "success"
+
+def test_delete_non_existed_friend():
+	socnet = SocNet()
+	assert socnet.delete_friend(2, [3, "friend1"]) == "User is not in friend list"
 
 def test_find_user_by_name():
 	socnet = SocNet()
@@ -47,8 +51,8 @@ def test_get_list_friends():
 
 def test_list_messages_1_and_2():
 	socnet = SocNet()
-	assert socnet.get_list_messages(1, 2) == ["Вы: Test text", "test: Test text 2"]
+	assert socnet.get_list_messages(1, [2, "test"]) == ["Вы: Test text", "test: Test text 2", "Вы: test"]
 
 def test_list_messages_2_and_1():
 	socnet = SocNet()
-	assert socnet.get_list_messages(2, 1) == ["admin: Test text", "Вы: Test text 2"]
+	assert socnet.get_list_messages(2, [1, "admin"]) == ["admin: Test text", "Вы: Test text 2", "admin: test"]
