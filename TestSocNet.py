@@ -44,3 +44,7 @@ def test_create_user_already_created():
 def test_get_list_friends():
 	socnet = SocNet()
 	assert socnet.get_list_friends(1) == [[2, "test"], [3, "friend1"]]
+
+def test_list_messages():
+	socnet = SocNet()
+	assert socnet.get_list_messages(1, 2) == ["Вы: Test text", "test: Test text 2"]

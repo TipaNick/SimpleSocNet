@@ -30,7 +30,10 @@ class SocNet:
 		return "success"
 
 	def add_friend(self, id_user, name_friend):
-		# todo: finish method
+		# Метод, добавляющий в друзья
+		# param id_user - любое число
+		# param name_friend - любая строка
+		# return - статус операции 
 		friend_id = self.find_user_by_name(name_friend)
 		if friend_id == -1:
 			return "User is not existed"
@@ -84,3 +87,6 @@ class SocNet:
 					friends_list.append([user[0], user[1]])
 					break
 		return friends_list
+
+	def get_list_messages(self, id_user, id_friend):
+		return ["Вы: Test text", "test: Test text 2"]
